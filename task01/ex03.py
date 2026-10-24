@@ -1,27 +1,29 @@
 import numpy as np
 x = np.array([100, 200, 250], dtype=np.uint8)
 
-#1
-#([110 210 4])
+# Part 1
+
 print(x + 10)
-#([200 44 94])
+
 print(x + 100)
-#([206 50 100])
+
 print(x - 150)
-#([200 144 244])
+
 print(x * 2)
-#([200 300 350])
+
 print(x.astype(np.int16) + 100)
-#([150 300 375])
+
 print(x * 1.5)
-#float64
+
 print((x * 1.5).dtype)
 
-#2
-#print(x + 300)
-#Error because 300 is outside the range of uint8.
+# Part 2
+try:
+    print(x + 300)
+except (OverflowError, TypeError) as error:
+    print(type(error).__name__ + ":", error)
 
-#3
+# Part 3
 def add_safe(x, b):
     x = x.astype(np.int16)
     result = x + b
@@ -32,10 +34,26 @@ x = np.array([100, 200, 250], dtype=np.uint8)
 print(add_safe(x, 100))
 print(add_safe(x, -150))
 
-#4
+# Part 4
 #First, 100 is added to x.
 # This can cause overflow before np.clip is applied, so the result may be incorrect.
 
-#5
-#The range of `int8` is -128 to 127.
-#so 127+1 = -128 
+# Part 5 
+
+x_int8 = np.array([100, 120, 127], dtype=np.int8)
+print("int8 x + 10:")
+print(x_int8 + 10)
+print("int8 x + 100:")
+print(x_int8 + 100)
+print("int8 x - 150:")
+print(x_int8 - 150)
+print("int8 x * 2:")
+print(x_int8 * 2)
+print("int8 x.astype(np.int16) + 100:")
+print(x_int8.astype(np.int16) + 100)
+print("int8 x * 1.5:")
+print(x_int8 * 1.5)
+print("(int8 x * 1.5).dtype:")
+print((x_int8 * 1.5).dtype)
+print("int8 127 + 1:")
+print(np.array([127], dtype=np.int8) + 1)
